@@ -1,0 +1,19 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "CVPwX/CSFprO7H5YCNb6d2cy8gk=",
+			"path": "github.com/nlopes/slack",
+			"revision": "4feee83bb2b31d790977ce727a028c6a542c72c7",
+			"revisionTime": "2016-07-03T12:43:30Z"
+		},
+		{
+			"checksumSHA1": "7EZyXN0EmZLgGxZxK01IJua4c8o=",
+			"path": "golang.org/x/net/websocket",
+			"revision": "ffcf1bedda3b04ebb15a168a59800a73d6dc0f4d",
+			"revisionTime": "2017-03-29T01:43:45Z"
+		}
+	],
+	"rootPath": "github.com/cogolabs/slackipmi"
+}
