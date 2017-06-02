@@ -1,5 +1,6 @@
 package main
 
+// Action is user initiated behavior passed by Slack
 type Action struct {
 	Actions []struct {
 		Name  string `json:"name"`
