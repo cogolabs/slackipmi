@@ -19,7 +19,7 @@ const (
 )
 
 func TestActions(t *testing.T) {
-	testflight.WithServer(http.HandlerFunc(actions), func(r *testflight.Requester) {
+	testflight.WithServer(http.DefaultServeMux, func(r *testflight.Requester) {
 
 		request, err := http.NewRequest("POST", "/actions", strings.NewReader(testActionsPayload))
 		request.Header.Set("Content-Type", "application/x-www-form-urlencoded")

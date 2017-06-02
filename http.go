@@ -13,15 +13,14 @@ var (
 
 func init() {
 	flag.Parse()
-}
 
-func main() {
 	http.Handle("/actions", http.HandlerFunc(actions))
 	http.Handle("/oauth", http.HandlerFunc(oauth))
 	http.Handle("/power", http.HandlerFunc(power))
+}
 
-	err := http.ListenAndServe(*addr, nil)
-	if err != nil {
+func main() {
+	if err := http.ListenAndServe(*addr, nil); err != nil {
 		log.Println(err)
 	}
 }

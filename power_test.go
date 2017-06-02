@@ -39,7 +39,7 @@ const (
 )
 
 func TestPower(t *testing.T) {
-	testflight.WithServer(http.HandlerFunc(power), func(r *testflight.Requester) {
+	testflight.WithServer(http.DefaultServeMux, func(r *testflight.Requester) {
 
 		request, err := http.NewRequest("POST", "/power", strings.NewReader(testPowerPayload))
 		request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
