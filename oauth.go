@@ -17,12 +17,13 @@ var (
 func oauth(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	code := r.FormValue("code")
-	// b, _ := json.Marshal(r.Form)
-	// log.Println(string(b))
 
 	token, scope, err := slack.GetOAuthToken(*oauthClientID, *oauthClientSecret, code, *baseURL+"/oauth", false)
-	log.Printf("oauth: %+v / %+v / %s\n", token, scope, err)
 	if err != nil {
+		log.Println(err)
 		w.WriteHeader(500)
+		w.Write([]byte(err.Error()))
+		return
 	}
+	log.Printf("oauth: %+v / %+v\n", token, scope)
 }

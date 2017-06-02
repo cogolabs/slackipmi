@@ -51,3 +51,34 @@ func TestPower(t *testing.T) {
 
 	})
 }
+
+func TestPowerInvalid(t *testing.T) {
+	testflight.WithServer(http.DefaultServeMux, func(r *testflight.Requester) {
+
+		request, err := http.NewRequest("POST", "/power", strings.NewReader(""))
+		request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+		assert.Nil(t, err)
+		response := r.Do(request)
+
+		assert.Equal(t, 200, response.StatusCode)
+		assert.Equal(t, "invalid host", response.Body)
+
+	})
+}
+
+func TestPowerMissing(t *testing.T) {
+	oldArgv0 := argv0
+	argv0 = "missing"
+	testflight.WithServer(http.DefaultServeMux, func(r *testflight.Requester) {
+
+		request, err := http.NewRequest("POST", "/power", strings.NewReader(testPowerPayload))
+		request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+		assert.Nil(t, err)
+		response := r.Do(request)
+
+		assert.Equal(t, 200, response.StatusCode)
+		assert.Equal(t, `exec: "missing": executable file not found in $PATH`, response.Body)
+
+	})
+	argv0 = oldArgv0
+}

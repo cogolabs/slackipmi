@@ -12,6 +12,7 @@ var (
 )
 
 func init() {
+	log.SetFlags(log.Flags() | log.Lshortfile)
 	flag.Parse()
 
 	http.Handle("/actions", http.HandlerFunc(actions))

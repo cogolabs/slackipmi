@@ -18,7 +18,32 @@ const (
 	testActionsExpected = "-H baremetal1 -U ADMIN -P foobar123 power reset\n"
 )
 
+var testActions = [][]string{
+	{testActionsPayload, testActionsExpected},
+	{strings.Replace(testActionsPayload, *slackTeam, "badorg", -1), ""},
+	{strings.Replace(testActionsPayload, *slackToken, "badtoken", -1), ""},
+	{"", ""},
+}
+
 func TestActions(t *testing.T) {
+	testflight.WithServer(http.DefaultServeMux, func(r *testflight.Requester) {
+		for _, test := range testActions {
+
+			request, err := http.NewRequest("POST", "/actions", strings.NewReader(test[0]))
+			request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+			assert.Nil(t, err)
+			response := r.Do(request)
+
+			assert.Equal(t, 200, response.StatusCode)
+			assert.Equal(t, test[1], response.Body)
+
+		}
+	})
+}
+
+func TestActionsMissing(t *testing.T) {
+	oldArgv0 := argv0
+	argv0 = "missing"
 	testflight.WithServer(http.DefaultServeMux, func(r *testflight.Requester) {
 
 		request, err := http.NewRequest("POST", "/actions", strings.NewReader(testActionsPayload))
@@ -27,7 +52,8 @@ func TestActions(t *testing.T) {
 		response := r.Do(request)
 
 		assert.Equal(t, 200, response.StatusCode)
-		assert.Equal(t, testActionsExpected, response.Body)
+		assert.Equal(t, `exec: "missing": executable file not found in $PATH`, response.Body)
 
 	})
+	argv0 = oldArgv0
 }
