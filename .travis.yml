@@ -1,2 +1,7 @@
 language: go
 go: 1.x
+script:
+- go test -v -cover -coverprofile=coverage.out
+after_script:
+- go get github.com/mattn/goveralls
+- goveralls -coverprofile=coverage.out
