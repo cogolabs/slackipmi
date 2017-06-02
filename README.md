@@ -1,7 +1,12 @@
+[![Build Status](https://travis-ci.org/cogolabs/slackipmi.svg?branch=master)](https://travis-ci.org/cogolabs/slackipmi)
+[![Docker Build Status](https://img.shields.io/docker/build/cogolabs/slackipmi.svg)](https://hub.docker.com/r/cogolabs/slackipmi/)
+[![Coverage Status](https://coveralls.io/repos/github/cogolabs/slackipmi/badge.svg?branch=master)](https://coveralls.io/github/cogolabs/slackipmi?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cogolabs/slackipmi)](https://goreportcard.com/report/github.com/cogolabs/slackipmi)
 # slackipmi
 reboot servers via IPMI over Slack!
 ```
-Usage of ./slackipmi:
+~]# docker run cogolabs/slackipmi -h
+Usage of /go/bin/slackipmi:
   -base-url string
     	base URL (Slack-accessible) (default "https://slack.colofoo.net")
   -http string
